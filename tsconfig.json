@@ -23,15 +23,15 @@
     /* Absolute imports */
     "baseUrl": "./src/",
     "paths": {
-      "@/*": ["*"],
-      "@pages/*": ["pages/*"],
-      "@components/*": ["components/*"],
-      "@redux/*": ["redux/*"],
-      "@utils/*": ["utils/*"],
-      "@routes/*": ["routes/*"],
-      "@assets/*": ["assets/*"],
-      "@hooks/*": ["hooks/*"],
-      "@types/*": ["types/*"]
+      "@/*": ["*"]
+      // "@pages/*": ["pages/*"],
+      // "@components/*": ["components/*"],
+      // "@redux/*": ["redux/*"],
+      // "@utils/*": ["utils/*"],
+      // "@routes/*": ["routes/*"],
+      // "@assets/*": ["assets/*"],
+      // "@hooks/*": ["hooks/*"],
+      // "@types/*": ["types/*"]
     }
   },
   "include": ["src"],

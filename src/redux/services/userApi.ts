@@ -1,9 +1,39 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { RootState } from '@/redux/store'
+import { User } from '@/types/types'
+
+export interface UserResponse {
+  user: User
+  token: string
+}
+
+export interface LoginRequest {
+  email: string
+  password: string
+}
+
+export interface RegisterRequest {
+  email: string
+  password: string
+  name: string
+}
 
 export const userApi = createApi({
   reducerPath: 'userApi',
+  tagTypes: ['User'],
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://biroperjalanan.datacakra.com',
+    baseUrl: import.meta.env.VITE_API_URL,
+    // Setup headers
+    prepareHeaders: (headers, { getState, endpoint }) => {
+      // Add token if endpoint is getUserById
+      if (endpoint === 'getUserById') {
+        const token = (getState() as RootState).userState.token
+        if (token) {
+          headers.set('Authorization', `${token}`)
+        }
+      }
+      return headers
+    },
   }),
   endpoints: (builder) => ({
     postUserAuth: builder.mutation({
@@ -12,6 +42,7 @@ export const userApi = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['User'],
     }),
     postUserRegister: builder.mutation({
       query: (body) => ({
@@ -19,9 +50,11 @@ export const userApi = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['User'],
     }),
     getUserById: builder.query({
       query: (id) => `/api/users/${id}`,
+      providesTags: ['User'],
     }),
   }),
 })

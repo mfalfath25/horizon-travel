@@ -1,10 +1,12 @@
-import { useAppSelector } from '@/redux/hooks'
-import { selectCount } from '@/redux/slices/counterSlice'
+import LoginForm from '@/components/forms/LoginForm'
 
 const LoginPage = () => {
-  const state = useAppSelector(selectCount)
-
-  return <div>LoginPage {state.value}</div>
+  return (
+    <div>
+      <h1>Login Page</h1>
+      <LoginForm />
+    </div>
+  )
 }
 
 export default LoginPage

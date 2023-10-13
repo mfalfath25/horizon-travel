@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '../store'
 import { Tourist } from '@/types/types'
+import { RootState } from '@/redux/store'
 
 const initialState: Tourist = {
   id: '',

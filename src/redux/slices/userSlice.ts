@@ -1,39 +1,49 @@
 import { User } from '@/types/types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from '@/redux/store'
+import { userApi } from '../services/userApi'
 
-const initialState: User = {
-  id: '',
-  name: '',
-  email: '',
-  avatar: '',
-  isLogged: false,
+type UserState = {
+  user: User | null
+  token: string | null
+}
+
+const initialState: UserState = {
+  user: null,
+  token: null,
 }
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setId: (state, action: PayloadAction<string>) => {
-      state.id = action.payload
+    setUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload
     },
-    setName: (state, action: PayloadAction<string>) => {
-      state.name = action.payload
+    setToken: (state, action: PayloadAction<string>) => {
+      state.token = action.payload
     },
-    setEmail: (state, action: PayloadAction<string>) => {
-      state.email = action.payload
-    },
-    setAvatar: (state, action: PayloadAction<string>) => {
-      state.avatar = action.payload
-    },
-    setIsLogged: (state, action: PayloadAction<boolean>) => {
-      state.isLogged = action.payload
-    },
+  },
+  extraReducers(builder) {
+    builder.addMatcher(
+      userApi.endpoints.postUserAuth.matchFulfilled,
+      (state, { payload }) => {
+        const userData = payload.data
+        const user: User = {
+          id: userData.Id,
+          email: userData.Email,
+          name: userData.Name,
+          avatar: userData.Avatar ? userData.Avatar : undefined,
+        }
+        state.user = user
+        state.token = payload.data.Token
+      },
+    )
   },
 })
 
-export const { setId, setName, setEmail, setAvatar, setIsLogged } =
-  userSlice.actions
+export const { setUser, setToken } = userSlice.actions
 
-export const selectUser = (state: { user: User }) => state.user
+export const selectUser = (state: RootState) => state.userState
 
 export default userSlice.reducer

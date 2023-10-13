@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { userApi } from '@redux/services/userApi'
-import { touristApi } from '@redux/services/touristApi'
-import userSlice from '@redux/slices/userSlice'
-import counterSlice from '@redux/slices/counterSlice'
-import touristSlice from '@redux/slices/touristSlice'
+import { userApi } from '@/redux/services/userApi'
+import { touristApi } from '@/redux/services/touristApi'
+import userSlice from '@/redux/slices/userSlice'
+import counterSlice from '@/redux/slices/counterSlice'
+import touristSlice from '@/redux/slices/touristSlice'
 
 const rootReducer = combineReducers({
   // slices reducer

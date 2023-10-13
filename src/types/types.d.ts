@@ -2,8 +2,7 @@ export type User = {
   id: string
   email: string
   name: string
-  avatar: string
-  isLogged: boolean
+  avatar: string | undefined
 }
 
 export type Tourist = {
