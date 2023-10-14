@@ -4,10 +4,12 @@ import {
   usePostUserRegisterMutation,
 } from '@/redux/services/userApi'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '@/hooks/useAuth'
 
 const RegisterForm = () => {
   const [postUserRegister, { isSuccess }] = usePostUserRegisterMutation()
   const navigate = useNavigate()
+  const auth = useAuth()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -23,13 +25,9 @@ const RegisterForm = () => {
   }
 
   useEffect(() => {
-    if (isSuccess) {
-      console.log('User registered successfully')
-      navigate('/login')
-    } else {
-      console.log('User registration failed || User already exists')
-    }
-  }, [isSuccess])
+    if (auth.token) navigate('/', { replace: true }) // prevent auth user to access register page
+    if (isSuccess) navigate('/login')
+  }, [isSuccess, navigate, auth.token])
 
   return (
     <form onSubmit={handleSubmit}>

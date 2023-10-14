@@ -23,6 +23,9 @@ const userSlice = createSlice({
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload
     },
+    resetUser: (state) => {
+      return { ...state, ...initialState }
+    },
   },
   extraReducers(builder) {
     builder.addMatcher(
@@ -38,11 +41,19 @@ const userSlice = createSlice({
         state.user = user
         state.token = payload.data.Token
       },
-    )
+    ),
+      builder.addMatcher(
+        userApi.endpoints.getUserById.matchFulfilled,
+        (state, { payload }) => {
+          if (state.user) {
+            state.user.avatar = payload.avatar
+          }
+        },
+      )
   },
 })
 
-export const { setUser, setToken } = userSlice.actions
+export const { setUser, setToken, resetUser } = userSlice.actions
 
 export const selectUser = (state: RootState) => state.userState
 

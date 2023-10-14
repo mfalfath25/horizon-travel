@@ -9,7 +9,7 @@ export const touristApi = createApi({
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).userState.token
       if (token) {
-        headers.set('Authorization', `${token}`)
+        headers.set('Authorization', `Bearer ${token}`)
       }
       return headers
     },

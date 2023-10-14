@@ -6,28 +6,22 @@ import LoginPage from '@/pages/LoginPage'
 import DashboardPage from '@/pages/DashboardPage'
 import RegisterPage from '@/pages/RegisterPage'
 import TouristPage from '@/pages/TouristPage'
+import ProfilePage from '@/pages/ProfilePage'
 
 export const routes = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
+      { path: '/login', element: <LoginPage /> },
+      { path: '/register', element: <RegisterPage /> },
       {
-        path: '/',
         element: <PrivateOutlet />,
         children: [
           { path: '/', element: <DashboardPage /> },
+          { path: '/profile/:userId', element: <ProfilePage /> },
           { path: '/tourist', element: <TouristPage /> },
         ],
-      },
-      {
-        path: '/login',
-        element: <LoginPage />,
-        index: true,
-      },
-      {
-        path: '/register',
-        element: <RegisterPage />,
       },
       { path: '*', element: <ErrorPage /> },
     ],

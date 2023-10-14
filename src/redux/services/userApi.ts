@@ -29,7 +29,7 @@ export const userApi = createApi({
       if (endpoint === 'getUserById') {
         const token = (getState() as RootState).userState.token
         if (token) {
-          headers.set('Authorization', `${token}`)
+          headers.set('Authorization', `Bearer ${token}`)
         }
       }
       return headers
@@ -53,7 +53,10 @@ export const userApi = createApi({
       invalidatesTags: ['User'],
     }),
     getUserById: builder.query({
-      query: (id) => `/api/users/${id}`,
+      query: (userId) => ({
+        url: `/api/users/${userId}`,
+        method: 'GET',
+      }),
       providesTags: ['User'],
     }),
   }),
