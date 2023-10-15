@@ -30,21 +30,60 @@ const RegisterForm = () => {
   }, [isSuccess, navigate, auth.token])
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Name:
-        <input type="name" name="name" autoFocus required />
-      </label>
-      <label>
-        Email:
-        <input type="email" name="email" required />
-      </label>
-      <label>
-        Password:
-        <input type="password" name="password" required />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+    <div className="flex flex-col gap-8 rounded-lg border-2 border-slate-400 bg-slate-200 px-6 py-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1">
+          <label htmlFor="name">
+            Name
+            <input
+              id="name"
+              type="name"
+              name="name"
+              autoFocus
+              required
+              autoComplete="name"
+              className="input input-bordered w-full max-w-xs"
+            />
+          </label>
+          <label htmlFor="email">
+            Email
+            <input
+              id="email"
+              type="email"
+              name="email"
+              required
+              autoComplete="email"
+              className="input input-bordered w-full max-w-xs"
+            />
+          </label>
+          <label htmlFor="password">
+            Password
+            <input
+              id="password"
+              type="password"
+              name="password"
+              required
+              className="input input-bordered w-full max-w-xs"
+            />
+          </label>
+        </div>
+
+        <button type="submit" className="btn btn-primary btn-md text-lg">
+          Submit
+        </button>
+      </form>
+      <div className="flex">
+        <p>Already registered?&nbsp;</p>
+        <button
+          className="text-blue-500 hover:underline"
+          onClick={() => {
+            navigate('/login')
+          }}
+        >
+          Login
+        </button>
+      </div>
+    </div>
   )
 }
 

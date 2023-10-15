@@ -1,21 +1,10 @@
 import LoginForm from '@/components/forms/LoginForm'
-import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
-  const navigate = useNavigate()
-
   return (
-    <div>
-      <h1>Login Page</h1>
+    <div className="flex min-h-[calc(100vh-50px)] flex-col items-center justify-center gap-4">
+      <h1 className="text-xl font-bold text-blue-500">Login</h1>
       <LoginForm />
-      <p>No account?</p>
-      <button
-        onClick={() => {
-          navigate('/register')
-        }}
-      >
-        Register
-      </button>
     </div>
   )
 }

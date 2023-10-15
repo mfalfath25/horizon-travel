@@ -1,5 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '@/redux/store'
+import { Tourist } from '@/types/types'
+
+export interface TouristRequest {
+  tourist_email?: string
+  tourist_location?: string
+  tourist_name?: string
+}
 
 export const touristApi = createApi({
   reducerPath: 'touristApi',
@@ -19,10 +26,12 @@ export const touristApi = createApi({
       query: () => `/api/tourist`,
       providesTags: ['Tourist'],
     }),
+
     getTouristById: builder.query({
       query: (id) => `/api/tourist/${id}`,
       providesTags: ['Tourist'],
     }),
+
     postAddTourist: builder.mutation({
       query: (body) => ({
         url: '/api/tourist',
@@ -31,14 +40,16 @@ export const touristApi = createApi({
       }),
       invalidatesTags: ['Tourist'],
     }),
-    putEditTourist: builder.mutation({
+
+    EditTourist: builder.mutation({
       query: ({ id, body }) => ({
         url: `/api/tourist/${id}`,
         method: 'PUT',
-        body,
+        body: { ...body },
       }),
       invalidatesTags: ['Tourist'],
     }),
+
     deleteTourist: builder.mutation({
       query: (id) => ({
         url: `/api/tourist/${id}`,
@@ -49,4 +60,10 @@ export const touristApi = createApi({
   }),
 })
 
-export const { useGetTouristsQuery, useGetTouristByIdQuery } = touristApi
+export const {
+  useGetTouristsQuery,
+  useGetTouristByIdQuery,
+  usePostAddTouristMutation,
+  useEditTouristMutation,
+  useDeleteTouristMutation,
+} = touristApi
