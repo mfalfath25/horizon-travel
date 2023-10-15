@@ -22,7 +22,7 @@ export default {
         'sans': ['Gabarito', 'Inter', 'system-ui', 'sans-serif'],
       },
       backgroundImage: theme => ({
-        'backdrop': "url('/src/assets/backdrop.png')",
+        'backdrop': "url('/src/assets/topography.svg')",
       }),
     },
   },

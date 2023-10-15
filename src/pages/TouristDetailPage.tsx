@@ -1,9 +1,10 @@
+import { useEffect } from 'react'
 import TouristDetail from '@/components/tourist/TouristDetail'
-import AddTouristForm from '@/components/tourist/forms/AddTouristForm'
 import EditTouristForm from '@/components/tourist/forms/EditTouristForm'
 import { useGetTouristByIdQuery } from '@/redux/services/touristApi'
-import { useEffect } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import BackButton from '@/components/ui/BackButton'
 
 const TouristDetailPage = () => {
   const location = useLocation()
@@ -21,7 +22,17 @@ const TouristDetailPage = () => {
   }
 
   // return <>{data ? renderPage() : <p>Loading...</p>}</>
-  return <AddTouristForm />
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.25, duration: 0.5, ease: 'easeInOut' }}
+      className="flex flex-col gap-2"
+    >
+      <BackButton />
+      {data ? renderPage() : <p>Loading...</p>}
+    </motion.div>
+  )
 }
 
 export default TouristDetailPage

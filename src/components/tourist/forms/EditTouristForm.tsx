@@ -87,7 +87,7 @@ const EditTouristForm = ({ tourist }: Props) => {
         </div>
 
         <button type="submit" className="btn btn-primary btn-md text-lg">
-          Submit
+          Edit Tourist
         </button>
       </form>
     </div>

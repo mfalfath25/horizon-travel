@@ -8,6 +8,7 @@ import RegisterPage from '@/pages/RegisterPage'
 import TouristPage from '@/pages/TouristPage'
 import ProfilePage from '@/pages/ProfilePage'
 import TouristDetailPage from '@/pages/TouristDetailPage'
+import HomePage from '@/pages/HomePage'
 
 export const routes = createBrowserRouter([
   {
@@ -23,7 +24,14 @@ export const routes = createBrowserRouter([
             path: '/',
             element: <Layout />,
             children: [
-              { path: '/profile/:userId', element: <ProfilePage /> },
+              {
+                path: '/',
+                element: <HomePage />,
+              },
+              {
+                path: '/profile/:userId',
+                element: <ProfilePage />,
+              },
               {
                 path: '/tourist',
                 element: <TouristPage />,

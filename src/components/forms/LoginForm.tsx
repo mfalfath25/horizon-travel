@@ -31,7 +31,7 @@ const LoginForm = () => {
   }, [isSuccess, navigate, location, auth.token])
 
   return (
-    <div className="flex flex-col gap-8 rounded-lg border-2 border-slate-400 bg-slate-200  px-6 py-4">
+    <div className="flex flex-col gap-8 rounded-lg border-2 border-slate-400 bg-slate-200 px-6 py-4">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
           <label htmlFor="email">Email</label>

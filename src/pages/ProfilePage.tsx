@@ -12,12 +12,12 @@ const ProfilePage = () => {
   useEffect(() => {}, [data])
 
   return (
-    <div className="flex min-h-[calc(100vh-200px)] items-center justify-center">
-      <div className="mx-auto flex h-auto w-auto max-w-sm flex-wrap items-start justify-center gap-4 rounded-md bg-slate-200 p-4 md:flex-nowrap md:rounded-tl-[3rem]">
+    <div className="flex items-center justify-center">
+      <div className="flex flex-row gap-4 rounded-md border-2 border-slate-300 bg-slate-200 p-4">
         <img
           src={user?.avatar}
           alt="User Avatar"
-          className="h-52 w-52 rounded-md object-cover md:rounded-tl-[2.5rem]"
+          className="h-52 w-52 rounded-md object-cover"
         />
         <div className="flex flex-col justify-evenly gap-4">
           <p className="text-2xl text-black">{user?.name}</p>

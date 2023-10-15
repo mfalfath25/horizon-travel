@@ -40,7 +40,7 @@ const Navbar = ({ user }: NavbarProps) => {
         <ul className="flex gap-2">
           {NavItems.map((item, index) => (
             <a key={index} href={item.path}>
-              <li className="btn btn-outline btn-sm rounded-md hover:text-white">
+              <li className="btn btn-ghost btn-sm hover:btn-primary rounded-md">
                 {item.label}
               </li>
             </a>
