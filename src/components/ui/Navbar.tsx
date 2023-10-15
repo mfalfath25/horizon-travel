@@ -4,6 +4,7 @@ import { useAppDispatch } from '@/redux/hooks'
 import { resetUser } from '@/redux/slices/userSlice'
 import { HiLogout } from 'react-icons/hi'
 import { resetTourist } from '@/redux/slices/touristSlice'
+import { ToastAlert } from './ToastAlert'
 
 interface NavbarProps {
   user: User | null
@@ -32,6 +33,7 @@ const Navbar = ({ user }: NavbarProps) => {
   const handleLogout = () => {
     dispatch(resetUser())
     dispatch(resetTourist())
+    ToastAlert('You have been logged out', 'success')
   }
 
   return (

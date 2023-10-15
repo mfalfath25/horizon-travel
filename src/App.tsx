@@ -1,4 +1,6 @@
 import { Outlet } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
+import { ToastStyles } from '@/components/ui/ToastAlert'
 
 function App() {
   return (
@@ -9,6 +11,13 @@ function App() {
         </div>
         <Outlet />
       </main>
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+        toastOptions={{
+          style: ToastStyles,
+        }}
+      />
     </>
   )
 }

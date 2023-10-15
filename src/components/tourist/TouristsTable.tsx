@@ -1,6 +1,6 @@
 import { useGetTouristsQuery } from '@/redux/services/touristApi'
 import { Tourist } from '@/types/types'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { BiEdit, BiTrash, BiDetail } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 import Modals from '../ui/Modals'
@@ -22,10 +22,6 @@ const TouristsTable = () => {
   const closeModal = () => {
     setIsDeleteModalOpen(false)
   }
-
-  useEffect(() => {
-    console.log(page)
-  }, [tourists, page])
 
   return (
     <section>

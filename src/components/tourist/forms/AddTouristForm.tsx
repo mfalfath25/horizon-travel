@@ -1,3 +1,4 @@
+import { ToastAlert } from '@/components/ui/ToastAlert'
 import {
   TouristRequest,
   usePostAddTouristMutation,
@@ -7,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 const AddTouristForm = () => {
   const formRef = useRef<HTMLFormElement | null>(null)
-  const [postAddTourist, { isSuccess }] = usePostAddTouristMutation()
+  const [postAddTourist, { isSuccess, isError }] = usePostAddTouristMutation()
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -29,8 +30,9 @@ const AddTouristForm = () => {
   }
 
   useEffect(() => {
-    if (isSuccess) console.log('success')
-  }, [isSuccess, navigate])
+    if (isSuccess) ToastAlert('Add tourist success', 'success')
+    if (isError) ToastAlert('Add tourist failed', 'error')
+  }, [isSuccess, isError, navigate])
 
   return (
     <div className="flex flex-col gap-8 rounded-lg border-2 border-slate-400 bg-slate-200 px-6 py-4">

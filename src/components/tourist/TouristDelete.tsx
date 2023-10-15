@@ -1,6 +1,7 @@
 import { useDeleteTouristMutation } from '@/redux/services/touristApi'
 import { useEffect } from 'react'
 import { BiError } from 'react-icons/bi'
+import { ToastAlert } from '../ui/ToastAlert'
 
 interface Props {
   close: () => void
@@ -8,15 +9,19 @@ interface Props {
 }
 
 const TouristDelete = ({ close, touristId }: Props) => {
-  const [deleteTourist, { isSuccess }] = useDeleteTouristMutation()
+  const [deleteTourist, { isSuccess, isError }] = useDeleteTouristMutation()
 
   const handleDelete = async () => {
     await deleteTourist(touristId)
   }
 
   useEffect(() => {
-    if (isSuccess) close()
-  }, [isSuccess, close])
+    if (isSuccess) {
+      ToastAlert('Delete tourist success', 'success')
+      close()
+    }
+    if (isError) ToastAlert('Delete tourist failed', 'error')
+  }, [isSuccess, isError, close])
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 p-2">

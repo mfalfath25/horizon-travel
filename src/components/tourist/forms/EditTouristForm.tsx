@@ -1,17 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   TouristRequest,
   useEditTouristMutation,
 } from '@/redux/services/touristApi'
 import { Tourist } from '@/types/types'
 import { useParams } from 'react-router-dom'
+import { ToastAlert } from '@/components/ui/ToastAlert'
 
 interface Props {
   tourist?: Tourist
 }
 
 const EditTouristForm = ({ tourist }: Props) => {
-  const [EditTourist] = useEditTouristMutation()
+  const [EditTourist, { isSuccess, isError }] = useEditTouristMutation()
   const { touristId } = useParams()
   const [form, setForm] = useState<TouristRequest | undefined>({
     tourist_email: tourist?.tourist_email || '',
@@ -40,8 +41,13 @@ const EditTouristForm = ({ tourist }: Props) => {
     await EditTourist({ id: touristId, body: formValues })
   }
 
+  useEffect(() => {
+    if (isSuccess) ToastAlert('Edit tourist success', 'success')
+    if (isError) ToastAlert('Edit tourist failed', 'error')
+  }, [isSuccess, isError])
+
   return (
-    <div className="flex flex-col gap-8 rounded-lg border-2 border-slate-400 bg-slate-200 px-6 py-4">
+    <div className="mx-auto flex flex-col gap-8 rounded-lg border-2 border-slate-400 bg-slate-200 px-6 py-4">
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center justify-center gap-4"

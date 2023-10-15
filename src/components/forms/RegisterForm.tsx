@@ -5,9 +5,11 @@ import {
 } from '@/redux/services/userApi'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/hooks/useAuth'
+import { ToastAlert } from '../ui/ToastAlert'
 
 const RegisterForm = () => {
-  const [postUserRegister, { isSuccess }] = usePostUserRegisterMutation()
+  const [postUserRegister, { isSuccess, isError }] =
+    usePostUserRegisterMutation()
   const navigate = useNavigate()
   const auth = useAuth()
 
@@ -26,8 +28,12 @@ const RegisterForm = () => {
 
   useEffect(() => {
     if (auth.token) navigate('/', { replace: true }) // prevent auth user to access register page
-    if (isSuccess) navigate('/login')
-  }, [isSuccess, navigate, auth.token])
+    if (isSuccess) {
+      ToastAlert('Register success', 'success')
+      navigate('/login')
+    }
+    if (isError) ToastAlert('Register failed', 'error')
+  }, [isSuccess, isError, navigate, auth.token])
 
   return (
     <div className="flex flex-col gap-8 rounded-lg border-2 border-slate-400 bg-slate-200 px-6 py-4">
