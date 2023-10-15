@@ -23,7 +23,7 @@ export const touristApi = createApi({
   }),
   endpoints: (builder) => ({
     getTourists: builder.query({
-      query: () => `/api/tourist`,
+      query: (page = 1) => `/api/tourist?page=${page}`,
       providesTags: ['Tourist'],
     }),
 

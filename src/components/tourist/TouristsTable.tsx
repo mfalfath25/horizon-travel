@@ -1,6 +1,6 @@
 import { useGetTouristsQuery } from '@/redux/services/touristApi'
 import { Tourist } from '@/types/types'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BiEdit, BiTrash, BiDetail } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 import Modals from '../ui/Modals'
@@ -8,7 +8,8 @@ import TouristDelete from './TouristDelete'
 
 const TouristsTable = () => {
   const navigate = useNavigate()
-  const { data: tourists } = useGetTouristsQuery({})
+  const [page, setPage] = useState(1)
+  const { data: tourists = [] } = useGetTouristsQuery(page)
 
   const [selectedTouristId, setSelectedTouristId] = useState('')
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -21,6 +22,10 @@ const TouristsTable = () => {
   const closeModal = () => {
     setIsDeleteModalOpen(false)
   }
+
+  useEffect(() => {
+    console.log(page)
+  }, [tourists, page])
 
   return (
     <section>
@@ -39,7 +44,7 @@ const TouristsTable = () => {
             {tourists
               ? tourists.data?.map((tourist: Tourist, index: number) => (
                   <tr key={tourist.id} className="hover:bg-slate-200">
-                    <td>{index + 1}</td>
+                    <td>{index + 1 + (page - 1) * 10}</td>
                     <td>
                       <div className="flex items-center space-x-3">
                         <div className="mask mask-circle h-8 w-8 bg-black">
@@ -89,6 +94,24 @@ const TouristsTable = () => {
               : null}
           </tbody>
         </table>
+      </div>
+
+      <div className="flex flex-row items-center justify-center gap-2 pt-2">
+        <button
+          disabled={page <= 1}
+          onClick={() => setPage((prev) => prev - 1)}
+          className="btn btn-outline btn-xs btn-square"
+        >
+          {'<'}
+        </button>
+        <p>{page}</p>
+        <button
+          disabled={tourists.length < 10}
+          onClick={() => setPage((prev) => prev + 1)}
+          className="btn btn-outline btn-xs btn-square"
+        >
+          {'>'}
+        </button>
       </div>
 
       <Modals
