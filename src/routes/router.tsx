@@ -33,6 +33,10 @@ export const routes = createBrowserRouter([
                 element: <TouristDetailPage />,
               },
               {
+                path: '/tourist/add',
+                element: <TouristDetailPage />,
+              },
+              {
                 path: '/tourist/edit/:touristId',
                 element: <TouristDetailPage />,
               },

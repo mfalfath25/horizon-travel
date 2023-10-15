@@ -23,9 +23,7 @@ export const userApi = createApi({
   tagTypes: ['User'],
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
-    // Setup headers
     prepareHeaders: (headers, { getState, endpoint }) => {
-      // Add token if endpoint is getUserById
       if (endpoint === 'getUserById') {
         const token = (getState() as RootState).userState.token
         if (token) {
@@ -44,6 +42,7 @@ export const userApi = createApi({
       }),
       invalidatesTags: ['User'],
     }),
+
     postUserRegister: builder.mutation({
       query: (body) => ({
         url: '/api/authaccount/registration',
@@ -52,6 +51,7 @@ export const userApi = createApi({
       }),
       invalidatesTags: ['User'],
     }),
+
     getUserById: builder.query({
       query: (userId) => ({
         url: `/api/users/${userId}`,

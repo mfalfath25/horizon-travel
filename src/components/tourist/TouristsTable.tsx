@@ -1,11 +1,26 @@
 import { useGetTouristsQuery } from '@/redux/services/touristApi'
 import { Tourist } from '@/types/types'
+import { useState } from 'react'
 import { BiEdit, BiTrash, BiDetail } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
+import Modals from '../ui/Modals'
+import TouristDelete from './TouristDelete'
 
 const TouristsTable = () => {
   const navigate = useNavigate()
   const { data: tourists } = useGetTouristsQuery({})
+
+  const [selectedTouristId, setSelectedTouristId] = useState('')
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+
+  const openDeleteModal = (touristId: string) => {
+    setSelectedTouristId(touristId)
+    setIsDeleteModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsDeleteModalOpen(false)
+  }
 
   return (
     <section>
@@ -61,7 +76,10 @@ const TouristsTable = () => {
                         >
                           Edit <BiEdit />
                         </button>
-                        <button className="btn btn-error btn-xs gap-1 rounded-md hover:text-white">
+                        <button
+                          onClick={() => openDeleteModal(tourist.id)}
+                          className="btn btn-error btn-xs gap-1 rounded-md hover:text-white"
+                        >
                           Delete <BiTrash />
                         </button>
                       </div>
@@ -72,6 +90,16 @@ const TouristsTable = () => {
           </tbody>
         </table>
       </div>
+
+      <Modals
+        isOpen={isDeleteModalOpen}
+        onClose={closeModal}
+        title="Confirm Delete"
+      >
+        {isDeleteModalOpen && selectedTouristId && (
+          <TouristDelete close={closeModal} touristId={selectedTouristId} />
+        )}
+      </Modals>
     </section>
   )
 }

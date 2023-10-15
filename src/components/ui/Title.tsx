@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
@@ -24,6 +25,11 @@ const Titles = [
   },
   {
     id: 5,
+    title: 'Add New Tourist',
+    url: `/tourist/add`,
+  },
+  {
+    id: 6,
     title: 'Edit Tourist Details',
     url: `/tourist/edit/:id`,
   },

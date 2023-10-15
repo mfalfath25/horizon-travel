@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '@/redux/store'
-import { Tourist } from '@/types/types'
 
 export interface TouristRequest {
+  tourist_profilepicture?: string
   tourist_email?: string
   tourist_location?: string
   tourist_name?: string

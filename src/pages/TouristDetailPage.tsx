@@ -1,4 +1,5 @@
 import TouristDetail from '@/components/tourist/TouristDetail'
+import AddTouristForm from '@/components/tourist/forms/AddTouristForm'
 import EditTouristForm from '@/components/tourist/forms/EditTouristForm'
 import { useGetTouristByIdQuery } from '@/redux/services/touristApi'
 import { useEffect } from 'react'
@@ -19,7 +20,8 @@ const TouristDetailPage = () => {
     }
   }
 
-  return <>{data ? renderPage() : <p>Loading...</p>}</>
+  // return <>{data ? renderPage() : <p>Loading...</p>}</>
+  return <AddTouristForm />
 }
 
 export default TouristDetailPage
